@@ -2,6 +2,8 @@
 //guarda en la constante express la libreria express
 const express = require("express");
 
+const cors = require('cors');
+
 
 //Se guardan en la constante app todos los metodos de la libreria express
 const app = express();
@@ -17,6 +19,12 @@ const productDB = '/api/products';
 //creacion de la constante userRoutes y productRoutes
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
+
+app.use(cors(
+    { 
+        origin: "http://localhost:4200"
+    }
+)) 
 
 app.use(express.json());
 
