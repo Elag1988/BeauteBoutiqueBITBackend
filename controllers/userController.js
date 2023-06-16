@@ -10,6 +10,15 @@ exports.getAllUsers = (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 };
 
+exports.getOneUser = (req, res) => {
+  const {username} = req.params;
+
+  userModel
+    .findOne({username})
+    .then((user) => res.json(user))
+    .catch((err) => res.status(500).json({error:err.message}));
+};
+
 exports.createUser = (req, res) => {
   const {
     name,
@@ -20,7 +29,7 @@ exports.createUser = (req, res) => {
     profileavatar,
     phonenumber,
     address,
-    preferences,
+    role
   } = req.body;
   const saltRounds = 10;
   bcrypt.hash(password, saltRounds, function (err, hash) {
@@ -36,7 +45,7 @@ exports.createUser = (req, res) => {
         profileavatar,
         phonenumber,
         address,
-        preferences,
+        role
       });
 
       newUser
@@ -58,7 +67,7 @@ exports.updateUser = (req, res) => {
     profileavatar,
     phonenumber,
     address,
-    preferences,
+    role
   } = req.body;
   const saltRounds = 10;
 
@@ -78,7 +87,7 @@ exports.updateUser = (req, res) => {
             profileavatar,
             phonenumber,
             address,
-            preferences,
+            role
           },
           { new: true }
         )

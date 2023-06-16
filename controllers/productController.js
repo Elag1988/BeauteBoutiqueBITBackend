@@ -1,5 +1,5 @@
 //Controller de los productos
-
+const {upload} = require("../middlewares/fileProductUpload");
 const productModel = require("../models/productModel");
 
 exports.getAllProducts = (req, res) => {
@@ -8,21 +8,26 @@ exports.getAllProducts = (req, res) => {
     .catch(err => res.status(500).json({error:err.message}));
 };
 
-exports.createProducts =  (req, res) => {
-    const {name,image,size, color,price,description } = req.body;
+exports.createProducts =  ('/upload',(req, res) => {
+
+    upload(req, res, (err) => {
+        if(err) {
+            console.log(err);
+        } else {
     const newProduct = new productModel({
-        name,
-        image,
-        size,
-        color,
-        price,
-        description
+        name: req.body.name,
+        size:req.body.size,
+        color: req.body.color,
+        price: req.body.price,
+        description: req.body.description
     });
 
     newProduct.save()
     .then(() => res.status(201).json({success:"created"}))
     .catch(err => res.status(500).json({error:err.message}));
 }
+})
+})
 
 exports.updateProduct = (req, res) => {
     const {id}= req.params;

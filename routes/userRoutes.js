@@ -12,6 +12,8 @@ const userController = require("../controllers/userController");
 
 router.get('/', userController.getAllUsers);
 
+router.get("/find/:username",userController.getOneUser);
+
 router.post('/create', userController.createUser);
 
 router.post("/login", authController.authenticateUser);

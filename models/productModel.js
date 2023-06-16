@@ -1,7 +1,7 @@
 //Modelo de Datos de los productos
 const mongoose = require("mongoose");
 
-const Uri = "Aqui va la URL de Mongo Altas o mongo local"
+const Uri = "Aqui va la Url de Altas o mongo local"
 
 mongoose.connect(Uri, {
   useNewUrlParser: true,
@@ -12,11 +12,10 @@ mongoose.connect(Uri, {
 
 const userSchema = new mongoose.Schema({
     name: {type:String, required:true},
-    image: {type:String},
     size: {type:String, required:true},
     color: {type:String, required:true},
     price: {type:Number, required:true},
-    description: {type:Array},
+    description: {type:String, required:true},
 }, {collection:"products"});
 
 module.exports = mongoose.model('products', userSchema);
